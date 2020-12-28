@@ -1,25 +1,20 @@
 package com.demo.config;
 import java.util.Locale;
 
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-
 @Configuration
 public class WebConf implements WebMvcConfigurer { 
+
     /**
-     * 多語系設定   
-     * @return
+     * 默認解析器 其中locale表示默認語言,當請求中未包含語種信息，則設置默認語種
+     * 當前默認為TAIWAN, zh_TW
      */   
     @Bean
     public LocaleResolver localeResolver() {
@@ -28,6 +23,9 @@ public class WebConf implements WebMvcConfigurer {
         return slr;
     }
 
+    /**
+    * 默認攔截器 其中lang表示切換語言的參數名
+    */
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
